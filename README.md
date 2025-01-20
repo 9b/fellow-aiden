@@ -38,6 +38,9 @@ PASSWORD = os.environ['FELLOW_PASSWORD']
 # Create an instance
 aiden = FellowAiden(EMAIL, PASSWORD)
 
+# Get device settings
+aiden.get_settings()
+
 # Get display name of brewer
 aiden.get_display_name()
 
