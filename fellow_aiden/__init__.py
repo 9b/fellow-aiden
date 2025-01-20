@@ -114,6 +114,9 @@ class FellowAiden:
         
     def get_display_name(self):
         return self._device_config.get('displayName', None)
+
+    def get_settings(self):
+        return self._log.info(self._device_config)
         
     def get_profiles(self):
         return self._profiles
