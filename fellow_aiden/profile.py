@@ -6,6 +6,7 @@ import re
 RATIO_ENUM = [14 + 0.5 * i for i in range(13)]                   # 14, 14.5, 15, ... , 20
 BLOOM_RATIO_ENUM = [1 + 0.5 * i for i in range(5)]               # 1, 1.5, 2, 2.5, 3
 BLOOM_DURATION_ENUM = list(range(1, 121))                        # 1 to 120
+OVERALL_TEMPERATURE_ENUM = [50 + 0.5 * i for i in range(99)]     # 50, 50.5, 51, 51.5 ... 99
 BLOOM_TEMPERATURE_ENUM = [50 + 0.5 * i for i in range(99)]       # 50, 50.5, 51, 51.5 ... 99
 PULSES_NUMBER_ENUM = list(range(1, 11))                          # 1 to 10
 PULSES_INTERVAL_ENUM = list(range(5, 61))                        # 5 to 60
@@ -18,6 +19,7 @@ class CoffeeProfile(BaseModel):
     profileType: int
     title: str
     ratio: float
+    overallTemperature: float
     bloomEnabled: bool
     bloomRatio: float
     bloomDuration: int
@@ -46,7 +48,14 @@ class CoffeeProfile(BaseModel):
         if v not in RATIO_ENUM:
             raise ValueError(f"ratio must be one of {RATIO_ENUM}. Got {v}")
         return v
-    
+
+    @field_validator('overallTemperature')
+    @classmethod
+    def validate_overall_temperature(cls, v):
+        if v not in OVERALL_TEMPERATURE_ENUM:
+            raise ValueError(f"overallTemperature must be one of {OVERALL_TEMPERATURE_ENUM}. Got {v}")
+        return v
+
     @field_validator('bloomRatio')
     @classmethod
     def validate_bloom_ratio(cls, v):
