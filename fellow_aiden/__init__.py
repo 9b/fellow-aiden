@@ -89,7 +89,7 @@ class FellowAiden:
         login_url = self.BASE_URL + self.API_AUTH
         response = self.SESSION.post(login_url, json=auth, headers=self.HEADERS)
         parsed = json.loads(response.content)
-        self._log.debug(parsed)
+        # Don't log the response: it contains the access and refresh tokens.
         if 'accessToken' not in parsed:
             raise Exception("Email or password incorrect.")
         self._log.debug("Authentication successful")
